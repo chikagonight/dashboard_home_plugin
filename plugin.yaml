@@ -1,0 +1,15 @@
+name: anori-grid
+version: 0.1.0
+description: "Anori-подобная стартовая страница в Hermes Desktop: папки, drag/resize сетка, 32 виджета; ссылки открываются в системном браузере."
+author: Ilya (chikago)
+license: MIT
+manifest_version: 2
+api_version: 1
+requires_hermes: ">=0.23"
+tags:
+  - desktop
+  - dashboard
+  - widgets
+  - start-page
+# homepage: https://github.com/<owner>/hermes-anori-grid  # заполнить после публикации
+# нужен только для карточки в каталоге; установка из Git работает и без него

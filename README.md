@@ -33,6 +33,29 @@ desktop/plugin.js   половина Desktop — один plain-ESM файл, б
 (`%LOCALAPPDATA%\hermes\desktop-plugins\anori-grid\` на Windows,
 `~/.hermes/desktop-plugins/anori-grid/` на Linux/macOS).
 
+## Структура репозитория
+
+```
+plugin.yaml         манифест (name/version/description, requires_hermes)
+desktop/plugin.js   половина Desktop — один plain-ESM файл, без сборки
+scripts/pack_host.js, scripts/make_pack.py   сборка отдельных виджетов
+check.sh            локальная проверка пакета (без сети и без Desktop)
+sync.sh             копирование исходника в живой корень загрузки
+IDEA.md             цель, состояние, план проекта
+pack/  dist/        артефакты сборки (в Git не входят)
+```
+
+## Проверка
+
+```bash
+./check.sh                                    # манифест, desktop half, sync.sh
+python3 scripts/make_pack.py --zip            # pack/anori-* + dist/anori-pack.zip
+./sync.sh                                     # исходник -> живой desktop-plugins
+```
+
+`ANORI_LIVE=<путь>` добавляет явную цель для `sync.sh`, `ANORI_NO_AUTO=1`
+отключает автопоиск корней.
+
 ## Разработка без установки
 
 Положи файл прямо в корень загрузки — приложение следит за этой папкой и
@@ -44,17 +67,14 @@ cp desktop/plugin.js ~/.hermes/desktop-plugins/anori-grid/plugin.js
 ```
 
 Если панель не появилась: ⌘K / Ctrl+K → «Reload desktop plugins».
-Скрипт `sync.sh` делает это же для живой установки (см. ниже).
 
-## Проверка
+## Отдельные виджеты
 
-```bash
-./check.sh        # манифест, desktop-половина, поведение sync.sh; без сети
-```
-
-Локальные проверки: `node --check` на `desktop/plugin.js`, `hermes plugins
-validate . --json`, три сценария `sync.sh` в изолированном `HOME`. Загрузку
-плагина в живом Desktop это не заменяет.
+`scripts/make_pack.py` собирает из виджетов источника 32 самостоятельных
+плагина (`pack/anori-<widget>/` с `plugin.js` + README и архив
+`dist/anori-pack.zip`): каждый регистрирует панель в правой колонке
+(`PANES_AREA`) и команду палитры, конфиг держит в `ctx.storage`. Правки
+вносятся в `desktop/plugin.js` и пересобираются — файлы в `pack/` производные.
 
 ## Виджеты
 

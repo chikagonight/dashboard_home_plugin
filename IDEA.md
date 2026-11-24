@@ -13,6 +13,9 @@ Hermes Desktop, устанавливаемый из Git: сетка виджет
 Windows Desktop лежит в `C:\Users\weed\AppData\Local\hermes\desktop-plugins\anori-grid\plugin.js`
 (standalone-файл, совпадает с исходником по SHA-256) — это результат разработки,
 а не managed-установка.
+Публикация выполнена: remote `git@github.com:chikagonight/dashboard_home_plugin.git`
+(публичный репозиторий, ветка `main`) содержит HEAD `51c299b`; `pack/` и `dist/`
+не входят (`.gitignore`), в tree 11 верхнеуровневых путей.
 
 ## План и этапы
 
@@ -20,8 +23,9 @@ Windows Desktop лежит в `C:\Users\weed\AppData\Local\hermes\desktop-plugin
    в живой корень и `./check.sh` для проверки пакета.
 2. Отдельные виджеты собирает `python3 scripts/make_pack.py [--zip]` из блоков
    с маркерами `[WIDGET <id>]`; каталоги `pack/` и `dist/` — артефакты, в Git не входят.
-3. Публикация: завести удалённый репозиторий, вписать `homepage` в `plugin.yaml`,
-   проверить `hermes plugins install <owner>/<repo>` на нативном Windows Desktop.
+3. Публикация: remote заведён и `main` запушен (2026-11-24). Осталось: вписать
+   `homepage` в `plugin.yaml` и проверить `hermes plugins install
+   chikagonight/dashboard_home_plugin` на нативном Windows Desktop.
 4. Заявка в каталог Hermes (правила Admission, README с disclosure о сети) — после
    того как установка из Git подтверждена на обеих сторонах.
 
@@ -47,11 +51,13 @@ Windows Desktop лежит в `C:\Users\weed\AppData\Local\hermes\desktop-plugin
   Прежние копии в `~/.hermes/cache/scratch/` удалены как дубли.
 - История Git перенесена целиком (4 коммита, ветка `main`) из
   `~/projects/hermes-anori-grid` в `~/projects/hermes_plugins/dashboard_home_plugin`.
+- Репозиторий опубликован на GitHub (push -u origin main): `git ls-remote` и
+  Contents API подтверждают `main` на SHA HEAD и 11 верхнеуровневых путей;
+  `check.sh` перед push — `verify: ALL PASS`.
 
 ## Следующий шаг
 
-Завести удалённый репозиторий (GitHub) и проверить `hermes plugins install` из
-него на нативном Windows Desktop с последующим включением в Capabilities → Plugins;
-перед этим — не держать две копии плагина (standalone-файл в `desktop-plugins`
-удалить после успешной managed-установки). Публичный remote и публикация
-выполняются только по явному согласованию владельца.
+Проверить `hermes plugins install chikagonight/dashboard_home_plugin` из GitHub на
+нативном Windows Desktop с последующим включением в Capabilities → Plugins; при
+успехе удалить standalone-файл в `desktop-plugins`, чтобы не держать две копии
+плагина. До этого — вписать `homepage` в `plugin.yaml` (сейчас закомментирован).

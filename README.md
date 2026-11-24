@@ -46,6 +46,16 @@ cp desktop/plugin.js ~/.hermes/desktop-plugins/anori-grid/plugin.js
 Если панель не появилась: ⌘K / Ctrl+K → «Reload desktop plugins».
 Скрипт `sync.sh` делает это же для живой установки (см. ниже).
 
+## Проверка
+
+```bash
+./check.sh        # манифест, desktop-половина, поведение sync.sh; без сети
+```
+
+Локальные проверки: `node --check` на `desktop/plugin.js`, `hermes plugins
+validate . --json`, три сценария `sync.sh` в изолированном `HOME`. Загрузку
+плагина в живом Desktop это не заменяет.
+
 ## Виджеты
 
 | группа | виджеты |

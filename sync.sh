@@ -7,7 +7,9 @@
 set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 src="$here/desktop/plugin.js"
-id="$(basename "$here")"
+id="$(sed -n "s/^name:[[:space:]]*//p" "$here/plugin.yaml" | head -1)"  # id плагина из манифеста
+
+[ -n "$id" ] || { echo "не удалось прочитать name: из plugin.yaml" >&2; exit 1; }
 
 targets=()
 [ -n "${ANORI_LIVE:-}" ] && targets+=("$ANORI_LIVE")
